@@ -1,6 +1,9 @@
 layoutXLM_checkpoint/
 layoutXLM_checkpoint/**
 
+images_gen/test_images/
+images_gen/test_images/**
+
 layoutXLM_ordered_checkpoint/
 layoutXLM_ordered_checkpoint/**
 
