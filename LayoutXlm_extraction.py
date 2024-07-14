@@ -44,8 +44,8 @@ def whole_pipeline(layout_model, processor, text_detection_model, text_recogniti
                             'qr_code_data': qr_code_data})
 
 
-    # fill_exel_report_good(extracted_data_results, clear_report_path='exel_report_clear.xlsx',
-    #                       to_paste_report_path='exel_report_to_paste.xlsx')
+    fill_exel_report_good(extracted_data_results, clear_report_path='exel_report_clear.xlsx',
+                          to_paste_report_path='exel_report_to_paste.xlsx')
 
     return results
 
@@ -80,6 +80,7 @@ def initialize_mcrnn_recognition():
     recognition_model = MCRNN([len(a) for a in alphabets])
     recognition_model.load_state_dict(torch.load(recognition_model_weights, map_location='cpu'))
     return recognition_model
+
 
 def layout_forward_pass(layout_model, processor, text_detection_model, text_recognition_model, np_image):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -184,10 +185,11 @@ def get_informative_tokens_text(encoding, offset_mapping, outputs, id2label, pro
 
     input_ids = encoding['input_ids'].squeeze().tolist()
 
-    is_subword = np.array(offset_mapping.squeeze().tolist())[:,0] != 0
+    is_subword = np.array(offset_mapping.squeeze().tolist())[:, 0] != 0
 
     predictions = outputs.logits.argmax(-1).squeeze().tolist()
     true_predictions = [id2label[pred] for idx, pred in enumerate(predictions) if not is_subword[idx]]
+    # print(offset_mapping.cpu().numpy())
 
     full_words = []
     word_idx = []

@@ -81,10 +81,11 @@ if __name__ == '__main__':
     text_recognition_model = initialize_mcrnn_recognition()
     print('Model and Processor are initialized')
 
-    app.run(debug=True)
+    #app.run(debug=True)
     # test image for debugging
-    # for image_name in os.listdir('docs'):
-    #     whole_pipeline(layout_model, layout_processor, text_detection_model, text_recognition_model, yolo_obb_model,
-    #                    image_name)
+    for image_name in os.listdir('docs'):
+        whole_pipeline(layout_model, layout_processor, text_detection_model, text_recognition_model, yolo_obb_model,
+                       image_name)
+        break
 
 
